@@ -2,7 +2,6 @@ package KNU.Navibook.server.domain;
 
 import jakarta.persistence.*;
 
-import java.awt.print.Book;
 
 @Entity
 public class Record{
@@ -12,6 +11,10 @@ public class Record{
     @ManyToOne // 1
     @JoinColumn(name = "USER_ID") // 2
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "BOOK_ID") // 2
+    private Book book;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "book_id")
