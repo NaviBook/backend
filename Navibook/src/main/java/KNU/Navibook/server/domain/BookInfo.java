@@ -1,12 +1,10 @@
 package KNU.Navibook.server.domain;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -15,12 +13,13 @@ public class BookInfo {
 
     @Id
     @GeneratedValue
-    private Long book_id;
+    private Long bookinfo_id;
 
-    private String bookshelf_Id;
+    private String bookname;
 
-    private String status;
+    private String writer;
 
-    private String self_floor;
+//    @OneToMany(mappedBy = "bookInfo")
+//    private List<Book> books = new ArrayList<>();
 
 }

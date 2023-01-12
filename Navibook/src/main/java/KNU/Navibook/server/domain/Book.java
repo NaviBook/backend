@@ -1,8 +1,5 @@
 package KNU.Navibook.server.domain;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +12,18 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private Long book_id;
+    @Column(name = "BOOK_ID")
+    private Long id;
 
-    private String bookshelf_Id;
+    @ManyToOne
+    @JoinColumn(name="BOOKINFO_ID")
+    private BookInfo bookInfo;
+
+    @ManyToOne
+    @JoinColumn(name="BOOKSHELF_ID")
+    private BookShelf bookShelf;
 
     private String status;
 
-    private String self_floor;
-
+    private Long self_floor;
 }
