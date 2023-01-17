@@ -1,5 +1,6 @@
 package KNU.Navibook.server.domain;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
@@ -26,4 +28,6 @@ public class Book {
     private String status;
 
     private Long self_floor;
+
+
 }
