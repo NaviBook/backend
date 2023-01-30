@@ -22,7 +22,7 @@ public class BookInfo {
 
     private String writer;
 
-    @OneToMany(mappedBy = "bookInfo", fetch = FetchType.EAGER)
-    private List<Book> bookList = new ArrayList<>();
+//    @OneToMany(mappedBy = "bookInfo", fetch = FetchType.EAGER)
+//    private List<Book> bookList = new ArrayList<>();
 
 }

@@ -26,6 +26,6 @@ public class BookShelf {
     private String libraryFloor;
 
     //양방향 매핑을 위해 추가
-//    @OneToMany(mappedBy = "bookshelf")
+//    @OneToMany(mappedBy = "bookShelf")
 //    private List<Book> bookList = new ArrayList<>();
 }
