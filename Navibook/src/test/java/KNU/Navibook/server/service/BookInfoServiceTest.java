@@ -18,25 +18,25 @@ public class BookInfoServiceTest {
         List<BookInfo> bookInfos=bookInfoService.findAll();
 
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
     @Test
     public void 책정보이름으로조회(){
         String name= "A10";
-        List<BookInfo> bookInfos=bookInfoService.findBybookname(name);
+        List<BookInfo> bookInfos=bookInfoService.findByBookName(name);
 
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
     @Test
     public void 책정보비슷한이름으로조회(){
         String search= "A";
-        List<BookInfo> bookInfos=bookInfoService.findBybooknameContaining(search);
+        List<BookInfo> bookInfos=bookInfoService.findByBookNameContaining(search);
 
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
 }

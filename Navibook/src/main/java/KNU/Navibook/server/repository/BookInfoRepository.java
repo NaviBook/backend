@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-public interface BookInfoRepository  extends JpaRepository<BookInfo, Long>{
+public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
    List<BookInfo> findAll();
     // 단순 값 하나를 조회
-   List<BookInfo> findBybookname(String book);
-   List<BookInfo> findBybooknameContaining(String keyword);
+   List<BookInfo> findBybookName(String book);
+   List<BookInfo> findBybookNameContaining(String keyword);
 
 }
