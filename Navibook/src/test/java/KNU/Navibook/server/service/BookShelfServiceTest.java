@@ -1,6 +1,5 @@
 package KNU.Navibook.server.service;
 
-import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookShelf;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class BookShelfTest {
+public class BookShelfServiceTest {
     @Autowired
     BookShelfService bookShelfService;
 
