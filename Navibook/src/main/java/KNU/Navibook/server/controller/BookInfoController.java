@@ -24,8 +24,8 @@ public class BookInfoController {
     }
     @GetMapping("/searchbookinfo")
     @ResponseBody
-    public List<BookInfo> searchBookInfoByName(@RequestParam("bookname") String name) {
+    public List<BookInfo> searchBookInfoByName(@RequestParam("bookName") String name) {
         System.out.println(name);
-        return bookInfoService.findBybooknameContaining(name); //스프링이 자동으로 JSON타입으로 객체를 반환해서 전달한다.
+        return bookInfoService.findByBookNameContaining(name); //스프링이 자동으로 JSON타입으로 객체를 반환해서 전달한다.
     }
 }

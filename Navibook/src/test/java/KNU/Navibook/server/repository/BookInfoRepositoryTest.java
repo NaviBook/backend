@@ -21,24 +21,25 @@ class BookInfoRepositoryTest {
     public void 책정보전체조회(){
         List<BookInfo> bookInfos=bookInfoRepository.findAll();
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
     @Test
     public void 책정보이름으로조회(){
         String bookname="A1";
-        List<BookInfo> bookInfos=bookInfoRepository.findBybookname(bookname);
+        List<BookInfo> bookInfos=bookInfoRepository.findBybookName(bookname);
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
 
     @Test
     public void 책정보이름비슷한것으로조회(){
         String bookname="A";
-        List<BookInfo> bookInfos=bookInfoRepository.findBybooknameContaining(bookname);
+
+        List<BookInfo> bookInfos=bookInfoRepository.findBybookNameContaining(bookname);
         for(BookInfo bookInfo:bookInfos){
-            System.out.println(bookInfo.getBookname());
+            System.out.println(bookInfo.getBookName());
         }
     }
 

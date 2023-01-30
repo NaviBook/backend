@@ -3,19 +3,22 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOOK_ID")
     private Long id;
+
 
     @ManyToOne
     @JoinColumn(name="BOOKINFO_ID")
@@ -25,9 +28,9 @@ public class Book {
     @JoinColumn(name="BOOKSHELF_ID")
     private BookShelf bookShelf;
 
-    private String status;
+    private Boolean status;
 
-    private Long self_floor;
+    private Long selfFloor;
 
 
 }

@@ -15,11 +15,11 @@ public class BookInfoService {
         return bookInfoRepository.findAll();
     }
 
-    public List<BookInfo> findBybookname(String name){
-        return bookInfoRepository.findBybookname(name);
+    public List<BookInfo> findByBookName(String name){
+        return bookInfoRepository.findBybookName(name);
     }
 
-    public List<BookInfo> findBybooknameContaining(String search){
-        return bookInfoRepository.findBybooknameContaining(search);
+    public List<BookInfo> findByBookNameContaining(String search){
+        return bookInfoRepository.findBybookNameContaining(search);
     }
 }

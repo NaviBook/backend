@@ -17,16 +17,15 @@ public class BookShelf {
     @Column(name = "BOOKSHELF_ID")
     private Long id;
 
-    private int shelf_floor;
+    private Long shelfFloor;
 
-    private int position_x;
-    private int position_y;
-    private int width;
-    private int height;
-    private String library_floor;
+    private Long positionX;
+    private Long positionY;
+    private Long width;
+    private Long height;
+    private String libraryFloor;
 
-    //양방햐 매핑을 위해 추가
+    //양방향 매핑을 위해 추가
 //    @OneToMany(mappedBy = "bookshelf")
-//    private List<Book> books = new ArrayList<>();
-
+//    private List<Book> bookList = new ArrayList<>();
 }
