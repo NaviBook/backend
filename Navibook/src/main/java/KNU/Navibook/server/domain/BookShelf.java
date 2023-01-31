@@ -27,7 +27,7 @@ public class BookShelf {
     private String libraryFloor;
 
     //양방향 매핑을 위해 추가
-    @OneToMany(mappedBy = "bookShelf")
+    //@OneToMany(mappedBy = "bookShelf")
     //@JsonManagedReference // 순환 참조 막기 위해서 직렬화 방향을 설정
-    private List<Book> bookList = new ArrayList<>();
+    //private List<Book> bookList = new ArrayList<>();
 }
