@@ -60,9 +60,6 @@ class BookRepositoryTest {
         book1.setBookInfo(bookinfo);
         book2.setBookInfo(bookinfo);
 
-        List<Book> books = bookInfoRepository.findById(bookinfo.getId()).get().getBookList();
-
-
     }
 }
 
