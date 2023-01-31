@@ -25,7 +25,7 @@ public class BookInfo {
     private String writer;
 
     @OneToMany(mappedBy = "bookInfo", fetch = FetchType.EAGER)
-    @JsonManagedReference // 순환 참조 막기 위해서 직렬화 방향을 설정
+    //@JsonManagedReference // 순환 참조 막기 위해서 직렬화 방향을 설정
     private List<Book> bookList = new ArrayList<>();
 
 }

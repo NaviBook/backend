@@ -22,12 +22,12 @@ public class Book {
 
 
     @ManyToOne
-    @JsonBackReference // 순환 참조 막기 위해서 직렬화 방향을 설정
+    //@JsonBackReference // 순환 참조 막기 위해서 직렬화 방향을 설정
     @JoinColumn(name="BOOKINFO_ID")
     private BookInfo bookInfo;
 
     @ManyToOne
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name="BOOKSHELF_ID")
     private BookShelf bookShelf;
 
