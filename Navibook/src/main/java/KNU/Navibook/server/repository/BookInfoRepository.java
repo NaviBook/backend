@@ -11,5 +11,5 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
     // 단순 값 하나를 조회
    List<BookInfo> findBybookName(String book);
    List<BookInfo> findBybookNameContaining(String keyword);
-
+   BookInfo findByid(Long id);
 }

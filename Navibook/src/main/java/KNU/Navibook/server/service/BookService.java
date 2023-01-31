@@ -12,7 +12,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> findBook(Long bookInfo){ // BookInfoId로 책 검색
+    public List<Book> findBook(BookInfo bookInfo){ // BookInfoId로 책 검색
         return bookRepository.findBybookInfo(bookInfo);
     }
 

@@ -3,6 +3,7 @@ package KNU.Navibook.server.controller;
 
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.domain.BookShelf;
+import KNU.Navibook.server.service.BookInfoService;
 import KNU.Navibook.server.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    BookInfoService bookInfoService;
+
     @GetMapping("/api/book") // book전체 조회
     @ResponseBody
     public List<Book> bookAll() {
@@ -27,6 +31,6 @@ public class BookController {
     @GetMapping("/api/book/{bookInfo}") // bookInfoId로 book조회
     @ResponseBody
     public List<Book> bookSearch(@PathVariable("bookInfo") Long infoId){
-        return bookService.findBook(infoId);
+        return bookService.findBook(bookInfoService.findOne(infoId));
     }
 }

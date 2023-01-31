@@ -19,6 +19,10 @@ public class BookInfoService {
         return bookInfoRepository.findBybookName(name);
     }
 
+    public BookInfo findOne(Long id){
+        return bookInfoRepository.findByid(id);
+    }
+
     public List<BookInfo> findByBookNameContaining(String search){
         return bookInfoRepository.findBybookNameContaining(search);
     }

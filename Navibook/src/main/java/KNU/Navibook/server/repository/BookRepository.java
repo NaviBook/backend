@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    List<Book> findBybookInfo(Long bookInfo); // BookInfoId로 책 검색
+    List<Book> findBybookInfo(BookInfo bookInfo); // BookInfoId로 책 검색
 }
