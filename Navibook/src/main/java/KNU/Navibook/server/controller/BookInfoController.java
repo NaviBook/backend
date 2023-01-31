@@ -19,7 +19,7 @@ public class BookInfoController {
 
     @GetMapping("/returnAllBookInfos")
     @ResponseBody
-    public List<BookInfo> example() {
+    public List<BookInfo> returnAllBookInfo() {
         return bookInfoService.findAll(); //스프링이 자동으로 JSON타입으로 객체를 반환해서 전달한다.
     }
     @GetMapping("/searchbookinfo")

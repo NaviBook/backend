@@ -12,7 +12,7 @@ public interface BookShelfRepository extends JpaRepository<BookShelf,Long> {
 
     // 모든 책장 조회
     List<BookShelf> findAll();
-    //도서관 층에 있는 모든 책장 조회
+    //도서관 층 별 책장 조회
     List<BookShelf> findBylibraryFloor(String libraryFloor);
 
 }
