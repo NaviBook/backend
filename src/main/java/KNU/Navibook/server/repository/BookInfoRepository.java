@@ -4,6 +4,7 @@ import KNU.Navibook.server.domain.BookInfo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
    BookInfo findByid(Long id);
 
    //@Query이용하여 jpql작성
-    @Query(value = "SELECT * FROM BOOK_INFO order by RAND() limit 1",nativeQuery = true)
-    public BookInfo findRandom();
+    @Query(value = "SELECT * FROM BOOK_INFO order by RAND() limit :count",nativeQuery = true)
+    List<BookInfo> findRandom(@Param("count") int count);
 }

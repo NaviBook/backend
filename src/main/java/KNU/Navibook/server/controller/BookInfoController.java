@@ -1,5 +1,6 @@
 package KNU.Navibook.server.controller;
 
+import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,17 @@ public class BookInfoController {
         return bookInfoService.findByBookNameContaining(name);
     }
 
-    @GetMapping("/random")
+    @GetMapping("/random/{count}")
     @ResponseBody
-    public BookInfo returnBookInfoRandom(){
-        return bookInfoService.findRandom();
+    public List<BookInfo> returnBookInfoRandom(@PathVariable("count") int count){
+        return bookInfoService.findRandom(count);
     }
+
+    @PostMapping ("/test/post")
+    @ResponseBody
+    public BookInfo test(@RequestBody BookInfo bookInfo){
+        System.out.println(bookInfo);
+        return bookInfo;
+    }
+
 }

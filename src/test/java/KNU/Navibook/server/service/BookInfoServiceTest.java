@@ -41,6 +41,12 @@ public class BookInfoServiceTest {
     }
     @Test
     public void 책정보랜덤조회(){
-        System.out.println(bookInfoService.findRandom().getBookName());
+        int count2=2;
+
+        List<BookInfo> bookInfos1=bookInfoService.findRandom(count2);
+
+        for(BookInfo bookInfo:bookInfos1){
+            System.out.println(bookInfo.getBookName());
+        }
     }
 }

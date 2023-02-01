@@ -44,9 +44,22 @@ class BookInfoRepositoryTest {
     }
     @Test
     public void 책정보랜덤으로조회(){
-        System.out.println(bookInfoRepository.findRandom().getBookName());
-        System.out.println(bookInfoRepository.findRandom().getBookName());
-        System.out.println(bookInfoRepository.findRandom().getBookName());
+        int count1=1;
+        int count2=2;
+        int count3=10;
+        List<BookInfo> bookInfos1=bookInfoRepository.findRandom(count1);
+        List<BookInfo> bookInfos2=bookInfoRepository.findRandom(count2);
+        List<BookInfo> bookInfos3=bookInfoRepository.findRandom(count3);
+//        for(BookInfo bookInfo:bookInfos1){
+//            System.out.println(bookInfo.getBookName());
+//        }
+//        for(BookInfo bookInfo:bookInfos2){
+//            System.out.println(bookInfo.getBookName());
+//        }
+        for(BookInfo bookInfo:bookInfos3){
+            System.out.println(bookInfo.getBookName());
+        }
+
     }
 
 }
