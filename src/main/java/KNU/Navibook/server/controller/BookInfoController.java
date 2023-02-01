@@ -33,7 +33,7 @@ public class BookInfoController {
 
     @PostMapping ("/add")
     @ResponseBody
-    public BookInfo test(@RequestBody BookInfo bookInfo){
+    public BookInfo bookInfoSave(@RequestBody BookInfo bookInfo){
         return bookInfoService.save(bookInfo);
     }
 
