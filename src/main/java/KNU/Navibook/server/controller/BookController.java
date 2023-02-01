@@ -7,9 +7,7 @@ import KNU.Navibook.server.service.BookInfoService;
 import KNU.Navibook.server.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import KNU.Navibook.server.domain.Book;
 
 import java.util.List;
@@ -32,5 +30,13 @@ public class BookController {
     @ResponseBody
     public List<Book> bookSearch(@PathVariable("bookInfo") Long infoId){
         return bookService.findBook(bookInfoService.findOne(infoId));
+    }
+
+    @PostMapping("/test")
+    @ResponseBody
+    public Book bookSave(@RequestBody Book book) {
+        System.out.println(book.getBookInfo().getBookName());
+        System.out.println(book.getId());
+        return book;
     }
 }

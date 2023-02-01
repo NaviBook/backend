@@ -34,6 +34,7 @@ public class BookInfoController {
     @PostMapping ("/add")
     @ResponseBody
     public BookInfo save(@RequestBody BookInfo bookInfo){
+
         return bookInfoService.save(bookInfo);
     }
 
