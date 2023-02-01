@@ -5,6 +5,7 @@ import KNU.Navibook.server.domain.BookShelf;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,5 +28,22 @@ public class BookShelfRepositoryTest {
         for(BookShelf bookShelf:bookShelves){
             System.out.println(bookShelf.getHeight());
         }
+    }
+
+    @Test
+    @Transactional
+    public void 책장등록(){
+        Long id=1513L;
+        Long shelfFloor=4L;
+        Long positionX=20L;
+        Long positionY=20L;
+        Long height=100L;
+        Long width=50L;
+        String libraryFloor="2F";
+        BookShelf bookShelf=new BookShelf(id,shelfFloor,positionX,positionY,width,height,libraryFloor);
+
+        BookShelf savebookShelf=bookShelfRepository.save(bookShelf);
+        System.out.println(savebookShelf.getId());
+
     }
 }

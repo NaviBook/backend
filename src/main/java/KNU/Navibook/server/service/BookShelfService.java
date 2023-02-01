@@ -19,4 +19,8 @@ public class BookShelfService {
     public List<BookShelf> findByLibraryFloor(String floor){
         return bookShelfRepository.findBylibraryFloor(floor);
     }
+
+    public BookShelf save(BookShelf bookShelf){
+        return bookShelfRepository.save(bookShelf);
+    }
 }

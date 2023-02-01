@@ -1,6 +1,7 @@
 package KNU.Navibook.server.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +12,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class BookShelf {
 
     @Id
-    @GeneratedValue
     @Column(name = "BOOKSHELF_ID")
     private Long id;
 
