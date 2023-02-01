@@ -14,7 +14,7 @@ import java.util.UUID;
 public class BookShelf {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOOKSHELF_ID")
     private Long id;
 
