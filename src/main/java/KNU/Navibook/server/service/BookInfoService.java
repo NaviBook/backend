@@ -26,4 +26,7 @@ public class BookInfoService {
     public List<BookInfo> findByBookNameContaining(String search){
         return bookInfoRepository.findBybookNameContaining(search);
     }
+    public BookInfo findRandom(){
+        return bookInfoRepository.findRandom();
+    }
 }

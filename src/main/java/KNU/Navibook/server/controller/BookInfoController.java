@@ -23,4 +23,10 @@ public class BookInfoController {
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
         return bookInfoService.findByBookNameContaining(name);
     }
+
+    @GetMapping("/random")
+    @ResponseBody
+    public BookInfo returnBookInfoRandom(){
+        return bookInfoService.findRandom();
+    }
 }

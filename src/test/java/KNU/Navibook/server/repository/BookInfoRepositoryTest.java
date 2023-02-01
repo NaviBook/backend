@@ -42,5 +42,11 @@ class BookInfoRepositoryTest {
             System.out.println(bookInfo.getBookName());
         }
     }
+    @Test
+    public void 책정보랜덤으로조회(){
+        System.out.println(bookInfoRepository.findRandom().getBookName());
+        System.out.println(bookInfoRepository.findRandom().getBookName());
+        System.out.println(bookInfoRepository.findRandom().getBookName());
+    }
 
 }
