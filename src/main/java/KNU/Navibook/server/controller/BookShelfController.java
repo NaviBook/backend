@@ -15,11 +15,18 @@ public class BookShelfController {
     @Autowired
     BookShelfService bookShelfService;
 
+
+    @GetMapping("")
+    @ResponseBody
+    public List<BookShelf> returnAll(){
+        return bookShelfService.findAll();
+    }
     @GetMapping("/{libraryFloor}")
     @ResponseBody
     public List<BookShelf> returnAllBookShelfs(@PathVariable("libraryFloor") String floor){
         return bookShelfService.findByLibraryFloor(floor);
     }
+
 
     @PostMapping("/add")
     @ResponseBody
