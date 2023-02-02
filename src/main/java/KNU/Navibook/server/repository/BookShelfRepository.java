@@ -16,4 +16,5 @@ public interface BookShelfRepository extends JpaRepository<BookShelf,Long> {
     List<BookShelf> findBylibraryFloor(String libraryFloor);
 
     BookShelf save(BookShelf bookShelf);
+    BookShelf findByid(Long id);
 }
