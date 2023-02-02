@@ -16,13 +16,18 @@ public class BookInfoController {
     BookInfoService bookInfoService;
     @GetMapping("")
     @ResponseBody
-    public List<BookInfo> returnBookInfo(){
+    public List<BookInfo> returnBookInfoAll(){
         return bookInfoService.findAll();
     }
     @GetMapping("/{bookName}")
     @ResponseBody
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
         return bookInfoService.findByBookNameContaining(name);
+    }
+    @GetMapping("/")
+    @ResponseBody
+    public BookInfo returnBookInfoById(@RequestParam(value="bookInfoId") Long id){
+        return bookInfoService.findOne(id);
     }
 
     @GetMapping("/random/{count}")
@@ -37,14 +42,11 @@ public class BookInfoController {
 
         return bookInfoService.save(bookInfo);
     }
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id){
-        System.out.println(id);
-        bookInfoService.deleteByid(id);
-    }
-    @PutMapping("/edit")
+
+    @PostMapping ("/edit")
     @ResponseBody
     public BookInfo edit(@RequestBody BookInfo bookInfo){
-        return bookInfo;
+        return bookInfoService.save(bookInfo);
     }
+
 }

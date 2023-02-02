@@ -22,9 +22,14 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
     List<BookInfo> findRandom(@Param("count") int count);
 
 
+
     void deleteByid(Long id);
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE BookInfo m SET m.bookName = :bookname, m.writer = :writer where m.id = :id")
     int updateByid(@Param(value="bookname")String bookname,@Param(value="writer")String writer,@Param(value="id")Long id);
+
+    BookInfo save(BookInfo bookInfo);
+
+
 }

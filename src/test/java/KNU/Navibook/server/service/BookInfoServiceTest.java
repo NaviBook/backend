@@ -67,13 +67,13 @@ public class BookInfoServiceTest {
         System.out.println(savebookInfo.getId());
         return savebookInfo;
     }
-    @Test
-    @Transactional
-    public void 책정보삭제(){
-        BookInfo newbook=책정보등록();
-        Long id= newbook.getId();
-        책정보전체조회();
-        bookInfoService.deleteByid(id);
-        책정보전체조회();
-    }
+//    @Test
+//    @Transactional
+//    public void 책정보삭제(){
+//        BookInfo newbook=책정보등록();
+//        Long id= newbook.getId();
+//        책정보전체조회();
+//        bookInfoService.deleteByid(id);
+//        책정보전체조회();
+//    }
 }

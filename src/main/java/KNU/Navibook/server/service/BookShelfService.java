@@ -1,5 +1,6 @@
 package KNU.Navibook.server.service;
 
+import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.domain.BookShelf;
 import KNU.Navibook.server.repository.BookShelfRepository;
@@ -22,5 +23,11 @@ public class BookShelfService {
 
     public BookShelf save(BookShelf bookShelf){
         return bookShelfRepository.save(bookShelf);
+    }
+    public int validateDuplicateBookShelf(BookShelf bookShelf){
+        if (bookShelfRepository.findByid(bookShelf.getId())!=null){
+            return 0;
+        }
+        else return -1;
     }
 }

@@ -31,12 +31,8 @@ public class BookInfoService {
         return bookInfoRepository.findRandom(count);
     }
 
-    @Transactional
-    public void deleteByid(Long id){
-        bookInfoRepository.deleteByid(id);
-    }
+
     public BookInfo save(BookInfo bookInfo){
         return bookInfoRepository.save(bookInfo);
     }
-
 }
