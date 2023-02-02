@@ -25,9 +25,8 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
     BookInfo save(BookInfo bookInfo);
 
 
-    void deleteByid(Long id);
-
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE BookInfo m SET m.bookName = :bookname, m.writer = :writer where m.id = :id")
-    int updateByid(@Param(value="bookname")String bookname,@Param(value="writer")String writer,@Param(value="id")Long id);
+    //void deleteByid(Long id);
+    //   @Modifying(clearAutomatically = true)
+//    @Query("UPDATE BookInfo m SET m.bookName = :bookname, m.writer = :writer where m.id = :id")
+//    int updateByid(@Param(value="bookname")String bookname,@Param(value="writer")String writer,@Param(value="id")Long id);
 }
