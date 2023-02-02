@@ -1,25 +1,30 @@
 package KNU.Navibook.server.controller;
 
+import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.domain.BookShelf;
 import KNU.Navibook.server.service.BookShelfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/bookShelf")
+@RequestMapping("/api/bookshelf")
 @Controller
 public class BookShelfController {
     @Autowired
     BookShelfService bookShelfService;
 
-    @GetMapping("/returnAllBookShelfs/{libraryFloor}")
+    @GetMapping("/{libraryFloor}")
     @ResponseBody
     public List<BookShelf> returnAllBookShelfs(@PathVariable("libraryFloor") String floor){
         return bookShelfService.findByLibraryFloor(floor);
     }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public BookShelf save(@RequestBody BookShelf bookShelf){
+        return bookShelfService.save(bookShelf);
+    }
+
 }

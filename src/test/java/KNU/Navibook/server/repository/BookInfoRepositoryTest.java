@@ -4,6 +4,7 @@ import KNU.Navibook.server.domain.BookInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.IntStream;
 
@@ -59,6 +60,22 @@ class BookInfoRepositoryTest {
         for(BookInfo bookInfo:bookInfos3){
             System.out.println(bookInfo.getBookName());
         }
+
+    }
+    @Test
+    @Transactional
+    public void 책정보등록(){
+        String bookname="test";
+        String writer="ajin";
+        BookInfo bookInfo=new BookInfo();
+        bookInfo.setBookName(bookname);
+        bookInfo.setWriter(writer);
+
+        BookInfo saveBookInfo;
+
+        saveBookInfo=bookInfoRepository.save(bookInfo);
+
+        System.out.println(saveBookInfo.getId());
 
     }
 

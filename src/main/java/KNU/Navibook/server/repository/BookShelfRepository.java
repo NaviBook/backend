@@ -15,4 +15,5 @@ public interface BookShelfRepository extends JpaRepository<BookShelf,Long> {
     //도서관 층 별 책장 조회
     List<BookShelf> findBylibraryFloor(String libraryFloor);
 
+    BookShelf save(BookShelf bookShelf);
 }

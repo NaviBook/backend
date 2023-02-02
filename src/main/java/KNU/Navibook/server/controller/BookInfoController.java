@@ -31,11 +31,11 @@ public class BookInfoController {
         return bookInfoService.findRandom(count);
     }
 
-    @PostMapping ("/test/post")
+    @PostMapping ("/add")
     @ResponseBody
-    public BookInfo test(@RequestBody BookInfo bookInfo){
-        System.out.println(bookInfo);
-        return bookInfo;
+    public BookInfo save(@RequestBody BookInfo bookInfo){
+
+        return bookInfoService.save(bookInfo);
     }
 
 }
