@@ -24,6 +24,11 @@ public class BookInfoController {
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
         return bookInfoService.findByBookNameContaining(name);
     }
+    @GetMapping("")
+    @ResponseBody
+    public BookInfo returnBookInfoById(@RequestParam(value="bookInfoId") Long id){
+        return bookInfoService.findOne(id);
+    }
 
     @GetMapping("/random/{count}")
     @ResponseBody
