@@ -16,7 +16,7 @@ public class BookInfoController {
     BookInfoService bookInfoService;
     @GetMapping("")
     @ResponseBody
-    public List<BookInfo> returnBookInfo(){
+    public List<BookInfo> returnBookInfoAll(){
         return bookInfoService.findAll();
     }
     @GetMapping("/{bookName}")
@@ -24,7 +24,7 @@ public class BookInfoController {
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
         return bookInfoService.findByBookNameContaining(name);
     }
-    @GetMapping("")
+    @GetMapping("/")
     @ResponseBody
     public BookInfo returnBookInfoById(@RequestParam(value="bookInfoId") Long id){
         return bookInfoService.findOne(id);
@@ -42,14 +42,11 @@ public class BookInfoController {
 
         return bookInfoService.save(bookInfo);
     }
-//    @DeleteMapping("/delete/{id}")
-//    public void delete(@PathVariable("id") Long id){
-//        System.out.println(id);
-//        bookInfoService.deleteByid(id);
-//    }
+
     @PostMapping ("/edit")
     @ResponseBody
     public BookInfo edit(@RequestBody BookInfo bookInfo){
         return bookInfoService.save(bookInfo);
     }
+
 }

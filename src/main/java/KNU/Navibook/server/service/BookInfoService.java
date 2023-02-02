@@ -33,10 +33,6 @@ public class BookInfoService {
     public BookInfo save(BookInfo bookInfo){
         return bookInfoRepository.save(bookInfo);
     }
-//
-//    @Transactional
-//    public void deleteByid(Long id){
-//        bookInfoRepository.deleteByid(id);
-//    }
+
 
 }
