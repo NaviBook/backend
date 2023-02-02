@@ -37,5 +37,14 @@ public class BookInfoController {
 
         return bookInfoService.save(bookInfo);
     }
-
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Long id){
+        System.out.println(id);
+        bookInfoService.deleteByid(id);
+    }
+    @PutMapping("/edit")
+    @ResponseBody
+    public BookInfo edit(@RequestBody BookInfo bookInfo){
+        return bookInfo;
+    }
 }

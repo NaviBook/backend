@@ -19,19 +19,20 @@ class BookInfoRepositoryTest {
     BookInfoRepository bookInfoRepository;
 
     @Test
-    public void 책정보전체조회(){
+    public List<BookInfo> 책정보전체조회(){
         List<BookInfo> bookInfos=bookInfoRepository.findAll();
         for(BookInfo bookInfo:bookInfos){
             System.out.println(bookInfo.getBookName());
         }
+        return bookInfos;
     }
     @Test
-    public void 책정보이름으로조회(){
-        String bookname="A1";
-        List<BookInfo> bookInfos=bookInfoRepository.findBybookName(bookname);
+    public List<BookInfo> 책정보이름으로조회(String name){
+        List<BookInfo> bookInfos=bookInfoRepository.findBybookName(name);
         for(BookInfo bookInfo:bookInfos){
             System.out.println(bookInfo.getBookName());
         }
+        return bookInfos;
     }
 
     @Test
@@ -64,7 +65,7 @@ class BookInfoRepositoryTest {
     }
     @Test
     @Transactional
-    public void 책정보등록(){
+    public BookInfo 책정보등록(){
         String bookname="test";
         String writer="ajin";
         BookInfo bookInfo=new BookInfo();
@@ -76,7 +77,41 @@ class BookInfoRepositoryTest {
         saveBookInfo=bookInfoRepository.save(bookInfo);
 
         System.out.println(saveBookInfo.getId());
+        return saveBookInfo;
+    }
+    @Test
+    @Transactional
+    public void 책정보삭제(){
+        BookInfo newbookinfo=책정보등록();
+        String name=newbookinfo.getBookName();
+        List<BookInfo>bookInfos = 책정보이름으로조회(name);
+        for (BookInfo bookInfo : bookInfos){
+            System.out.println(bookInfo);
+        }
+        bookInfoRepository.deleteByid(newbookinfo.getId());
+        List<BookInfo>bookInfos2 = 책정보이름으로조회(name);
+        for (BookInfo bookInfo : bookInfos2){
+            System.out.println(bookInfo);
+        }
+    }
+    @Test
+    @Transactional
+    public void 책정보수정(){
+        BookInfo bookInfo=new BookInfo();
+        bookInfo.setWriter("Park");
+        bookInfo.setBookName("Jiwon");
+        bookInfo.setId(999L);
+        bookInfoRepository.save(bookInfo);
+
+
+        String newName="Kwon";
+        String newWriter=("Dawoon");
+        int newbookinfo= bookInfoRepository.updateByid(newName,newWriter, 9994L);
+
+        BookInfo newbook = bookInfoRepository.findByid(bookInfo.getId());
+
+        System.out.println(newbookinfo);
+        System.out.println(newbook.getBookName());
 
     }
-
 }

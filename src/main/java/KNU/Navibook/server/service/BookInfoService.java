@@ -1,6 +1,7 @@
 package KNU.Navibook.server.service;
 
 import KNU.Navibook.server.repository.BookInfoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import KNU.Navibook.server.domain.BookInfo;
@@ -31,6 +32,11 @@ public class BookInfoService {
     }
     public BookInfo save(BookInfo bookInfo){
         return bookInfoRepository.save(bookInfo);
+    }
+
+    @Transactional
+    public void deleteByid(Long id){
+        bookInfoRepository.deleteByid(id);
     }
 
 }
