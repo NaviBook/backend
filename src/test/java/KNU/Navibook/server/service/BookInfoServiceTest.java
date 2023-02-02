@@ -52,7 +52,7 @@ public class BookInfoServiceTest {
     }
     @Test
     @Transactional
-    public void 책정보등록(){
+    public BookInfo 책정보등록(){
         String bookname="test";
         String writer="daesung";
 
@@ -65,6 +65,15 @@ public class BookInfoServiceTest {
         savebookInfo=bookInfoService.save(bookInfo);
 
         System.out.println(savebookInfo.getId());
-
+        return savebookInfo;
+    }
+    @Test
+    @Transactional
+    public void 책정보삭제(){
+        BookInfo newbook=책정보등록();
+        Long id= newbook.getId();
+        책정보전체조회();
+        bookInfoService.deleteByid(id);
+        책정보전체조회();
     }
 }

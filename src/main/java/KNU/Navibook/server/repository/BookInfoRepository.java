@@ -2,7 +2,9 @@ package KNU.Navibook.server.repository;
 import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookInfo;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,11 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
     List<BookInfo> findRandom(@Param("count") int count);
 
     BookInfo save(BookInfo bookInfo);
+
+
+    void deleteByid(Long id);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE BookInfo m SET m.bookName = :bookname, m.writer = :writer where m.id = :id")
+    int updateByid(@Param(value="bookname")String bookname,@Param(value="writer")String writer,@Param(value="id")Long id);
 }

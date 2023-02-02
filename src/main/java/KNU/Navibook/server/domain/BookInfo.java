@@ -16,7 +16,6 @@ import java.util.*;
 public class BookInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="BOOKINFO_ID")
     private Long id;
 
