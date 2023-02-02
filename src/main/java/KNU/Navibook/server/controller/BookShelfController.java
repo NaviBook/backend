@@ -15,7 +15,6 @@ public class BookShelfController {
     @Autowired
     BookShelfService bookShelfService;
 
-
     @GetMapping("")
     @ResponseBody
     public List<BookShelf> returnAll(){

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import KNU.Navibook.server.domain.Book;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BookController {
@@ -39,4 +40,15 @@ public class BookController {
         System.out.println(book.getId());
         return book;
     }
+
+//    {book_id: 12334,
+//            book_info_id:3245,
+//    }
+//    @PostMapping("/주소")
+//    @ResponseBody
+//    public BasicInfo github(@RequestBody Map<String, Object> requestData) {
+//        Long bookId= (Long) requestData.get("book_id");
+//        Long bookInfoId= (Long) requestData.get("book_info_id");
+//        return
+//    }
 }

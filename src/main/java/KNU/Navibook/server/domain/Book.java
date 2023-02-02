@@ -16,12 +16,10 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOOK_ID")
     private Long id;
 
-
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.PERSIST)
     //@JsonBackReference // 순환 참조 막기 위해서 직렬화 방향을 설정
     @JoinColumn(name="BOOKINFO_ID")
     private BookInfo bookInfo;

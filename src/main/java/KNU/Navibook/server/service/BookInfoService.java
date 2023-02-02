@@ -30,13 +30,13 @@ public class BookInfoService {
     public List<BookInfo> findRandom(int count){
         return bookInfoRepository.findRandom(count);
     }
-    public BookInfo save(BookInfo bookInfo){
-        return bookInfoRepository.save(bookInfo);
-    }
 
     @Transactional
     public void deleteByid(Long id){
         bookInfoRepository.deleteByid(id);
+    }
+    public BookInfo save(BookInfo bookInfo){
+        return bookInfoRepository.save(bookInfo);
     }
 
 }

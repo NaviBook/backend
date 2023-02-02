@@ -2,10 +2,12 @@ package KNU.Navibook.server.service;
 
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import KNU.Navibook.server.domain.Book;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -18,5 +20,13 @@ public class BookService {
 
     public List<Book> findBooks(){  //모든 book 조회
         return bookRepository.findAll();
+    }
+
+    public Book saveBook(Book book){
+        return bookRepository.save(book);
+    }
+
+    public Book findOne(Long bookid){
+        return bookRepository.findByid(bookid);
     }
 }

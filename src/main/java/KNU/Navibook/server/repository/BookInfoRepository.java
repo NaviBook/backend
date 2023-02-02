@@ -21,8 +21,6 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
     @Query(value = "SELECT * FROM BOOK_INFO order by RAND() limit :count",nativeQuery = true)
     List<BookInfo> findRandom(@Param("count") int count);
 
-    BookInfo save(BookInfo bookInfo);
-
 
     void deleteByid(Long id);
 
