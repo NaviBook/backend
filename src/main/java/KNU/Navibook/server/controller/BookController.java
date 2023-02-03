@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import KNU.Navibook.server.domain.Book;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BookController {
@@ -39,4 +40,26 @@ public class BookController {
         System.out.println(book.getId());
         return book;
     }
+    @PostMapping("/api/book/add")
+    @ResponseBody
+    public String bookAdd(@RequestBody Map<String, Object> requestData){
+        Integer bookId = (Integer) requestData.get("bookId");
+        Integer bookInfoId = (Integer) requestData.get("bookInfoId");
+
+        System.out.println(bookId);
+        System.out.println(bookInfoId);
+
+        return "test";
+    }
+//        Book book = new Book();
+//        BookInfo bookinfo = bookInfoService.findOne(bookInfoId);
+//
+//        book.setId(bookId);
+//
+//        //bookService.findOne(bookId);
+//        book.setBookInfo(bookinfo);
+//        bookService.saveBook(book);
+//
+//        return book;
+
 }

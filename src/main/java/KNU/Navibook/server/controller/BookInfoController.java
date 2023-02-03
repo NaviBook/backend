@@ -46,6 +46,7 @@ public class BookInfoController {
     @PostMapping ("/edit")
     @ResponseBody
     public BookInfo edit(@RequestBody BookInfo bookInfo){
+
         return bookInfoService.save(bookInfo);
     }
 
