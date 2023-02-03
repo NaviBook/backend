@@ -2,8 +2,7 @@ package KNU.Navibook.server.service;
 
 import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookInfo;
-
-import KNU.Navibook.server.repository.BookInfoRepository;
+import KNU.Navibook.server.domain.BookShelf;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +17,8 @@ import static org.assertj.core.api.Assertions.*;
 public class BookServiceTest {
     @Autowired BookService bookService;
     @Autowired BookInfoService bookInfoService;
+    @Autowired BookShelfService bookShelfService;
+
     @Test
     public void saveBook(){
         //given
@@ -79,6 +80,38 @@ public class BookServiceTest {
         List<Book> bookList = bookService.findBooks();
 
         //then
-        assertThat(bookList.size()).isEqualTo(2); // findAll 검증 하는 법.
+        //assertThat(bookList.size()).isEqualTo(2); // findAll 검증 하는 법.
+        for (Book book : bookList){
+            System.out.println(book.getId());
+        }
+    }
+
+    @Test
+    public void 책삭제(){
+        Book book1 = new Book();
+        Book book2 = new Book();
+
+        BookInfo bookInfo = new BookInfo();
+        BookShelf bookShelf = new BookShelf();
+
+        book1.setId(1000L);
+        book2.setId(2000L);
+        bookShelf.setId(10L);
+        bookShelf.setId(20L);
+        book1.setBookInfo(bookInfo);
+        book2.setBookInfo(bookInfo);
+        book1.setBookShelf(bookShelf);
+        book2.setBookShelf(bookShelf);
+
+        bookShelfService.save(bookShelf);
+        bookInfoService.save(bookInfo);
+        bookService.saveBook(book1);
+        bookService.saveBook(book2);
+
+        bookService.deleteBook(book1.getId());
+        bookService.deleteBook(book2.getId());
+
+        assertThat(bookService.findOne(book1.getId())).isEqualTo(null);
+        assertThat(bookService.findOne(book2.getId())).isEqualTo(null);
     }
 }

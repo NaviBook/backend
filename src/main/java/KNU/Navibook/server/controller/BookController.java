@@ -54,4 +54,10 @@ public class BookController {
 
         return book;
     }
+
+    @PostMapping("/api/book/delete") // 없는 값 삭제하면 badgate
+    @ResponseBody
+    public void bookDelete(@RequestBody Book book){
+        bookService.deleteBook(book.getId());
+    }
 }

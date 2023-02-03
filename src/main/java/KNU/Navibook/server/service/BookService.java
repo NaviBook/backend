@@ -26,7 +26,11 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book findOne(Long bookid){
-        return bookRepository.findByid(bookid);
+    public Book findOne(Long bookId){
+        return bookRepository.findByid(bookId);
+    }
+
+    public void deleteBook(Long bookId){
+        bookRepository.deleteById(bookId);
     }
 }
