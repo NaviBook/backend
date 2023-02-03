@@ -32,23 +32,23 @@ public class BookController {
     public List<Book> bookSearch(@PathVariable("bookInfo") Long infoId){
         return bookService.findBook(bookInfoService.findOne(infoId));
     }
-
-    @PostMapping("/test")
-    @ResponseBody
-    public Book bookSave(@RequestBody Book book) {
-        System.out.println(book.getBookInfo().getBookName());
-        System.out.println(book.getId());
-        return book;
-    }
-
 //    {book_id: 12334,
 //            book_info_id:3245,
 //    }
-//    @PostMapping("/주소")
-//    @ResponseBody
-//    public BasicInfo github(@RequestBody Map<String, Object> requestData) {
-//        Long bookId= (Long) requestData.get("book_id");
-//        Long bookInfoId= (Long) requestData.get("book_info_id");
-//        return
-//    }
+    @PostMapping("/api/book/add")
+    @ResponseBody
+    public Book bookAdd(@RequestBody Map<String, Object> requestData) {
+        Long bookId= (Long)requestData.get("bookId");
+        Long bookInfoId= (Long)requestData.get("bookInfoId");
+
+        System.out.println(bookId);
+        System.out.println(bookInfoId);
+        Book book = bookService.findOne(bookId);
+        BookInfo bookinfo = bookInfoService.findOne(bookInfoId);
+
+        book.setBookInfo(bookinfo);
+        bookService.saveBook(book);
+
+        return book;
+    }
 }
