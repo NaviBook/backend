@@ -32,19 +32,15 @@ public class BookController {
     public List<Book> bookSearch(@PathVariable("bookInfo") Long infoId){
         return bookService.findBook(bookInfoService.findOne(infoId));
     }
-//    {book_id: 12334,
-//            book_info_id:3245,
-//    }
+
     @PostMapping("/api/book/add")
     @ResponseBody
     public Book bookAdd(@RequestBody Map<String, Object> requestData) {
-        Long bookId= (Long)requestData.get("bookId");
-        Long bookInfoId= (Long)requestData.get("bookInfoId");
+        Integer bookId= (Integer)requestData.get("bookId");
+        Integer bookInfoId= (Integer)requestData.get("bookInfoId");
 
-        System.out.println(bookId);
-        System.out.println(bookInfoId);
-        Book book = bookService.findOne(bookId);
-        BookInfo bookinfo = bookInfoService.findOne(bookInfoId);
+        Book book = bookService.findOne((bookId.longValue()));
+        BookInfo bookinfo = bookInfoService.findOne((bookInfoId.longValue()));
 
         book.setBookInfo(bookinfo);
         bookService.saveBook(book);
