@@ -16,18 +16,17 @@ public class BookInfoController {
     BookInfoService bookInfoService;
     @GetMapping("")
     @ResponseBody
-    public List<BookInfo> returnBookInfoAll(){
-        return bookInfoService.findAll();
+    public Object returnBookInfoAll(@RequestParam(value="bookInfoId", required=false) Long id){
+        if(id==null)
+            return bookInfoService.findAll();
+        else
+            return bookInfoService.findOne(id);
     }
+
     @GetMapping("/{bookName}")
     @ResponseBody
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
         return bookInfoService.findByBookNameContaining(name);
-    }
-    @GetMapping("")
-    @ResponseBody
-    public BookInfo returnBookInfoById(@RequestParam(value="bookInfoId") Long id){
-        return bookInfoService.findOne(id);
     }
 
     @GetMapping("/random/{count}")
