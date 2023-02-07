@@ -1,13 +1,18 @@
 package KNU.Navibook.server.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Setter
+@Getter
 @Entity
 public class Record{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long record_id;
+    private Long id;
+
     @ManyToOne // 1
     @JoinColumn(name = "USER_ID") // 2
     private User user;
@@ -16,26 +21,6 @@ public class Record{
     @JoinColumn(name = "BOOK_ID") // 2
     private Book book;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "book_id")
-//    private Book book_id;
-
-    private String give_date;
-    private String take_date;
-
-    public String getGive_date() {
-        return give_date;
-    }
-
-    public void setGive_date(String give_date) {
-        this.give_date = give_date;
-    }
-
-    public String getTake_date() {
-        return take_date;
-    }
-
-    public void setTake_date(String take_date) {
-        this.take_date = take_date;
-    }
+    private String giveDate;
+    private String takeDate;
 }

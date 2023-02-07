@@ -11,12 +11,11 @@ public class User{
     @Id
     @Column(name="USER_ID")
     private String id;
-    private String user_name;
     private String pw;
-    private String admin;
-    private String sign_date;
+    private String name;
+    private Boolean admin;
 
-    @OneToMany(mappedBy = "user")
-    private List<Record> record = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Record> record = new ArrayList<>();
 
 }
