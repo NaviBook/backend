@@ -30,4 +30,9 @@ public class BookShelfService {
         }
         else return -1;
     }
+
+    public BookShelf findOne(Long bookShelfId) {
+        return bookShelfRepository.findByid(bookShelfId);
+    }
+
 }
