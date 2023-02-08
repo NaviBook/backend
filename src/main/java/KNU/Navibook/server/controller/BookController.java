@@ -100,11 +100,11 @@ public class BookController {
 
         return book;
     }
-    //bookid에 맞는 book 없으면 오류
-    //bookshelfid에 맞는 bookshelf 없으면 오류
+    //bookid에 맞는 book 없으면 404
+    //userid에 맞는 user 없으면 404
     @PostMapping("/api/book/borrow")
     @ResponseBody
-    public Book bookborrow(@RequestBody Map<String, Object> requestData) {
+    public Book bookBorrow(@RequestBody Map<String, Object> requestData) {
         String userId =(String) requestData.get("userId");
         Integer tmp2 = (Integer) requestData.get("bookId");
 
@@ -121,7 +121,44 @@ public class BookController {
         if (user==null){
             throw new UserNotFoundException(String.format("userID %s not found",userId));
         }
+        //이미 대여중인 도서인 경우 404
+        if (book.getStatus()==Boolean.FALSE){
+            throw new UserNotFoundException(String.format("userID %s not found",userId));
+        }
         book.setStatus(Boolean.FALSE);
+        book.setBookShelf(null);
+        book.setSelfFloor(null);
+
+        bookService.saveBook(book);
+
+        return book;
+    }
+    //bookid에 맞는 book 없으면 404
+    //userid에 맞는 user 없으면 404
+    @PostMapping("/api/book/return")
+    @ResponseBody
+    public Book bookReturn(@RequestBody Map<String, Object> requestData) {
+        String userId =(String) requestData.get("userId");
+        Integer tmp2 = (Integer) requestData.get("bookId");
+
+        Long bookId = tmp2.longValue();
+
+
+        Book book=bookService.findOne(bookId);
+        //잘못된 bookid일 경우 404
+        if (book==null){
+            throw new UserNotFoundException(String.format("bookId %s not found",bookId));
+        }
+        //잘못된 useid일 경우 404
+        User user= userService.findOne(userId);
+        if (user==null){
+            throw new UserNotFoundException(String.format("userID %s not found",userId));
+        }
+        //이미 있는 책인데 반납하려는 경우 404
+        if (book.getStatus()==Boolean.TRUE){
+            throw new UserNotFoundException(String.format("userID %s not found",userId));
+        }
+        book.setStatus(Boolean.TRUE);
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
