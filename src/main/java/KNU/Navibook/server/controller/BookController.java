@@ -3,6 +3,7 @@ package KNU.Navibook.server.controller;
 
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.domain.BookShelf;
+import KNU.Navibook.server.exceptions.UserNotFoundException;
 import KNU.Navibook.server.service.BookInfoService;
 import KNU.Navibook.server.service.BookService;
 import KNU.Navibook.server.service.BookShelfService;
@@ -78,7 +79,15 @@ public class BookController {
 
 
         Book book=bookService.findOne(bookId);
+        //잘못된 bookid일 경우 400 bad request
+        if (book==null){
+            throw new UserNotFoundException(String.format("bookId %s not found",bookId));
+        }
         BookShelf bookShelf = bookShelfService.findOne(bookShelfId);
+        //잘못된 bookshelfid일 경우 400 bad request
+        if (bookShelf==null){
+            throw new UserNotFoundException(String.format("bookShelfId not found"));
+        }
         book.setBookShelf(bookShelf);
         book.setSelfFloor(selfFloor);
 
