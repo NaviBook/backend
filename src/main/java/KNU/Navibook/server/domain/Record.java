@@ -1,26 +1,30 @@
 package KNU.Navibook.server.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Record{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // 1
-    @JoinColumn(name = "USER_ID") // 2
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "BOOK_ID") // 2
+    @JoinColumn(name = "BOOK_ID")
     private Book book;
 
-    private String giveDate;
     private String takeDate;
+    private String giveDate;
 }

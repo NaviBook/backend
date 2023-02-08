@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+@Repository
 public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
    List<BookInfo> findAll();
     // 단순 값 하나를 조회

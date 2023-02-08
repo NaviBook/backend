@@ -1,19 +1,19 @@
 package KNU.Navibook.server.controller;
 
-
+import java.time.LocalDate;
 import KNU.Navibook.server.domain.BookInfo;
 import KNU.Navibook.server.domain.BookShelf;
 import KNU.Navibook.server.domain.User;
+import KNU.Navibook.server.domain.Record;
+import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.exceptions.UserNotFoundException;
-import KNU.Navibook.server.service.BookInfoService;
-import KNU.Navibook.server.service.BookService;
-import KNU.Navibook.server.service.BookShelfService;
-import KNU.Navibook.server.service.UserService;
+import KNU.Navibook.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import KNU.Navibook.server.domain.Book;
 
+
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +21,15 @@ import java.util.Map;
 public class BookController {
     @Autowired
     BookService bookService;
-
     @Autowired
     BookInfoService bookInfoService;
     @Autowired
     BookShelfService bookShelfService;
-
     @Autowired
     UserService userService;
+    @Autowired
+    RecordService recordService;
+
 
     @GetMapping("/api/book") // book전체 조회
     @ResponseBody
@@ -82,7 +83,6 @@ public class BookController {
         Long bookShelfId = tmp2.longValue();
         Long selfFloor = tmp3.longValue();
 
-
         Book book=bookService.findOne(bookId);
         //잘못된 bookid일 경우 404
         if (book==null){
@@ -109,8 +109,6 @@ public class BookController {
         Integer tmp2 = (Integer) requestData.get("bookId");
 
         Long bookId = tmp2.longValue();
-
-
         Book book=bookService.findOne(bookId);
         //잘못된 bookid일 경우 404
         if (book==null){
@@ -125,12 +123,19 @@ public class BookController {
         if (book.getStatus()==Boolean.FALSE){
             throw new UserNotFoundException(String.format("userID %s not found",userId));
         }
+
         book.setStatus(Boolean.FALSE);
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
-        bookService.saveBook(book);
+        LocalDate nowDate = LocalDate.now(ZoneId.of("Asia/Seoul")); // 대출 현재 날짜 입력
+        Record record = new Record();
+        record.setTakeDate(nowDate.toString());
+        record.setBook(book);
+        record.setUser(user);
 
+        bookService.saveBook(book);
+        recordService.saveRecord(record);
         return book;
     }
     //bookid에 맞는 book 없으면 404
@@ -162,9 +167,13 @@ public class BookController {
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
+        LocalDate nowDate = LocalDate.now(ZoneId.of("Asia/Seoul")); // 반납 현재 날짜 입력
+        Record record = recordService.findRecord(book);
+        record.setGiveDate(nowDate.toString());
+
         bookService.saveBook(book);
+        recordService.saveRecord(record);
 
         return book;
     }
-
 }
