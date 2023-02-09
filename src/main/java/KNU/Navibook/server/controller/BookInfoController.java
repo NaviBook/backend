@@ -31,7 +31,7 @@ public class BookInfoController {
 
     @GetMapping("/random/{count}")
     @ResponseBody
-    public List<BookInfo> returnBookInfoRandom(@PathVariable("count") int count){
+    public List<BookInfo> returnBookInfoRandom(@PathVariable("count") Integer count){
         return bookInfoService.findRandom(count);
     }
 

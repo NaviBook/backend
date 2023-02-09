@@ -129,9 +129,9 @@ public class BookController {
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
-        bookService.saveBook(book);
+        Book borrowedbook = bookService.saveBook(book);
 
-        return book;
+        return borrowedbook;
     }
     //bookid에 맞는 book 없으면 404
     //userid에 맞는 user 없으면 404
@@ -162,9 +162,9 @@ public class BookController {
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
-        bookService.saveBook(book);
+        Book returnedbook = bookService.saveBook(book);
 
-        return book;
+        return returnedbook;
     }
 
 }
