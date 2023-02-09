@@ -19,7 +19,7 @@ public interface BookInfoRepository extends JpaRepository<BookInfo, Long>{
    BookInfo findByid(Long id);
 
    //@Query이용하여 jpql작성
-    @Query(value = "SELECT * FROM BOOK_INFO order by RAND() limit :count",nativeQuery = true)
+    @Query(value = "SELECT * FROM book_info order by RAND() limit :count",nativeQuery = true)
     List<BookInfo> findRandom(@Param("count") int count);
 
 
