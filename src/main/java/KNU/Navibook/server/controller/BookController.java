@@ -136,6 +136,10 @@ public class BookController {
         record.setUser(user);
 
         Book borrowedbook = bookService.saveBook(book);
+
+        System.out.println(borrowedbook);
+        System.out.println(book);
+
         recordService.saveRecord(record);
 
         return borrowedbook;
