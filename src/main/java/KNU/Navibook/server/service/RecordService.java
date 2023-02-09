@@ -16,9 +16,9 @@ public class RecordService {
 
     public List<Record> findRecords(){
         return recordRepository.findAll();
-    }
-    public List<Record> findRecordByBook(Book book) { return recordRepository.findBybook(book);} // 책으로 Record찾기.
-    public List<Record> findRecordByUser(User user) { return recordRepository.findByuser(user);} // 유저로 Record찾기.
+    } // 모든 Record 찾기
+    public List<Record> findRecordByBook(Book book) { return recordRepository.findBybook(book);} // 책으로 Record 찾기
+    public List<Record> findRecordByUser(User user) { return recordRepository.findByuser(user);} // 유저로 Record 찾기
     public Record saveRecord(Record record){
         return recordRepository.save(record);
     }
