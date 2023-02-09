@@ -128,15 +128,17 @@ public class BookController {
         book.setBookShelf(null);
         book.setSelfFloor(null);
 
+
         LocalDate nowDate = LocalDate.now(ZoneId.of("Asia/Seoul")); // 대출 현재 날짜 입력
         Record record = new Record();
         record.setTakeDate(nowDate.toString());
         record.setBook(book);
         record.setUser(user);
 
-        bookService.saveBook(book);
+        Book borrowedbook = bookService.saveBook(book);
         recordService.saveRecord(record);
-        return book;
+
+        return borrowedbook;
     }
     //bookid에 맞는 book 없으면 404
     //userid에 맞는 user 없으면 404
@@ -172,9 +174,9 @@ public class BookController {
         Record record = records.get(records.size()-1); // 그 후 레코드의 마지막 값 가져오기 why? 그 레코드의 giveDate 만 바꿔줘야 하니까
         record.setGiveDate(nowDate.toString());
 
-        bookService.saveBook(book);
+        Book returnedbook = bookService.saveBook(book);
         recordService.saveRecord(record);
 
-        return book;
+        return returnedbook;
     }
 }
