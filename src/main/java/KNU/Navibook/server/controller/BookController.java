@@ -101,7 +101,7 @@ public class BookController {
         return book;
     }
     //bookid에 맞는 book 없으면 404
-    //userid에 맞는 user 없으면 404
+    //userid에 맞는 user 없으면 404  // 관리자 조건 추가 해야 할 듯?
     @PostMapping("/api/book/borrow")
     @ResponseBody
     public Book bookBorrow(@RequestBody Map<String, Object> requestData) {
@@ -140,7 +140,7 @@ public class BookController {
     }
     //bookid에 맞는 book 없으면 404
     //userid에 맞는 user 없으면 404
-    @PostMapping("/api/book/return")
+    @PostMapping("/api/book/return") // 관리자 조건 추가해야 할 듯?
     @ResponseBody
     public Book bookReturn(@RequestBody Map<String, Object> requestData) {
         String userId =(String) requestData.get("userId");
@@ -168,7 +168,8 @@ public class BookController {
         book.setSelfFloor(null);
 
         LocalDate nowDate = LocalDate.now(ZoneId.of("Asia/Seoul")); // 반납 현재 날짜 입력
-        Record record = recordService.findRecord(book);
+        List<Record> records = recordService.findRecordByBook(book); // 그 책의 관련 된 Record 전부를 가져옴.
+        Record record = records.get(records.size()-1); // 그 후 레코드의 마지막 값 가져오기 why? 그 레코드의 giveDate 만 바꿔줘야 하니까
         record.setGiveDate(nowDate.toString());
 
         bookService.saveBook(book);
