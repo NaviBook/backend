@@ -3,6 +3,7 @@ package KNU.Navibook.server.controller;
 import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.Record;
 import KNU.Navibook.server.domain.User;
+import KNU.Navibook.server.dto.RecordDTO;
 import KNU.Navibook.server.service.BookService;
 import KNU.Navibook.server.service.RecordService;
 import KNU.Navibook.server.service.UserService;
@@ -25,7 +26,7 @@ public class RecordController {
 
     @GetMapping("/api/record") // record 전체 검색
     @ResponseBody
-    public List<Record> allRecord(@RequestParam("page") Integer page, @RequestParam("orderBy") String orderBy) {
+    public RecordDTO allRecord(@RequestParam("page") Integer page, @RequestParam("orderBy") String orderBy) {
         List<Record> records = recordService.findRecords();
         List<Record> pageRecords = new ArrayList<>();
 
@@ -54,11 +55,13 @@ public class RecordController {
             pageRecords.add(records.get(i));
         }
 
-        return pageRecords;
+        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
+
+        return recordDTO;
     }
     @GetMapping("/api/record/user/{userId}") // userId로 userRecord 검색
     @ResponseBody
-    public List<Record> userRecord(@PathVariable("userId") String userId,
+    public RecordDTO userRecord(@PathVariable("userId") String userId,
                                    @RequestParam("page") Integer page, @RequestParam("orderBy") String orderBy)
     {
         User user = userService.findOne(userId);
@@ -87,12 +90,13 @@ public class RecordController {
         for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
             pageRecords.add(records.get(i));
         }
+        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
 
-        return pageRecords;
+        return recordDTO;
     }
     @GetMapping("/api/record/book/{bookId}") //bookId로 bookRecord 검색
     @ResponseBody
-    public List<Record> bookRecord(@PathVariable("bookId") Long bookId,
+    public RecordDTO bookRecord(@PathVariable("bookId") Long bookId,
                                    @RequestParam("page") Integer page)
     {
         Book book = bookService.findOne(bookId);
@@ -106,8 +110,9 @@ public class RecordController {
         for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
             pageRecords.add(records.get(i));
         }
+        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
 
-        return pageRecords;
+        return recordDTO;
     }
 }
 
