@@ -4,6 +4,8 @@ import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.Record;
 import KNU.Navibook.server.domain.User;
 import KNU.Navibook.server.dto.RecordDTO;
+import KNU.Navibook.server.exceptions.BookNotFoundException;
+import KNU.Navibook.server.exceptions.UserNotFoundException;
 import KNU.Navibook.server.service.BookService;
 import KNU.Navibook.server.service.RecordService;
 import KNU.Navibook.server.service.UserService;
@@ -68,6 +70,10 @@ public class RecordController {
         List<Record> records = recordService.findRecordByUser(user);
         List<Record> pageRecords = new ArrayList<>();
 
+        if (user==null){
+            throw new UserNotFoundException(String.format("userId %s not found",userId));
+        }
+
         if (orderBy.equals("book")){ // bookName 내림차순 정렬
             Comparator<Record> bs = Comparator.comparing(a -> a.getBook().getBookInfo().getBookName());
             Collections.sort(records, bs);
@@ -82,9 +88,6 @@ public class RecordController {
             Comparator<Record> gs = Comparator.comparing(Record::getGiveDate, Comparator.nullsLast(Comparator.naturalOrder()));
             Collections.sort(records, gs);
             Collections.reverse(records);
-        }
-        else{// 예외처리 해줘야 함.
-
         }
 
         for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
@@ -106,6 +109,10 @@ public class RecordController {
         Comparator<Record> ts = Comparator.comparing(Record::getTakeDate);
         Collections.sort(records, ts);
         Collections.reverse(records);
+
+        if (book==null){
+            throw new BookNotFoundException(String.format("bookId %s not found",bookId));
+        }
 
         for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
             pageRecords.add(records.get(i));

@@ -2,6 +2,7 @@ package KNU.Navibook.server.controller;
 
 import KNU.Navibook.server.domain.Book;
 import KNU.Navibook.server.domain.BookInfo;
+import KNU.Navibook.server.exceptions.BookNotFoundException;
 import KNU.Navibook.server.service.BookInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,18 @@ public class BookInfoController {
         if(id==null)
             return bookInfoService.findAll();
         else
+            if (bookInfoService.findOne(id)==null){
+            throw new BookNotFoundException(String.format("bookInfoId %s not found", id));
+            }
             return bookInfoService.findOne(id);
     }
 
     @GetMapping("/{bookName}")
     @ResponseBody
     public List<BookInfo> returnBookInfo(@PathVariable("bookName") String name){
+        if (bookInfoService.findByBookNameContaining(name).isEmpty()){
+            throw new BookNotFoundException(String.format("bookInfo not found"));
+        }
         return bookInfoService.findByBookNameContaining(name);
     }
 
@@ -46,6 +53,9 @@ public class BookInfoController {
     @PostMapping ("/edit")
     @ResponseBody
     public BookInfo edit(@RequestBody BookInfo bookInfo){
+        if (bookInfo==null){
+            throw new BookNotFoundException(String.format("bookInfo not found"));
+        }
         return bookInfoService.save(bookInfo);
     }
 

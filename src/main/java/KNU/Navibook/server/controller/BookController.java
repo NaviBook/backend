@@ -6,6 +6,8 @@ import KNU.Navibook.server.domain.BookShelf;
 import KNU.Navibook.server.domain.User;
 import KNU.Navibook.server.domain.Record;
 import KNU.Navibook.server.domain.Book;
+import KNU.Navibook.server.exceptions.BookConflictException;
+import KNU.Navibook.server.exceptions.BookNotFoundException;
 import KNU.Navibook.server.exceptions.UserNotFoundException;
 import KNU.Navibook.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class BookController {
     @GetMapping("/api/book/{bookInfo}") // bookInfoId로 book조회
     @ResponseBody
     public List<Book> bookSearch(@PathVariable("bookInfo") Long infoId){
+        if (bookInfoService.findOne(infoId) == null){
+            throw new BookNotFoundException(String.format("bookInfoId %s not found",infoId));
+        }
         return bookService.findBook(bookInfoService.findOne(infoId));
     }
 
@@ -54,13 +59,20 @@ public class BookController {
         Long bookId = tmp1.longValue();
         Long bookInfoId = tmp2.longValue();
 
+        if (bookService.findOne(bookId)!=null){ // book이 이미 존재할 때 error code 409
+            throw new BookConflictException(String.format("bookId %s not Acceptable", bookId));
+        }
 
         Book book = new Book();
         book.setId(bookId);
 
         BookInfo bookinfo = bookInfoService.findOne(bookInfoId);
-        book.setBookInfo(bookinfo);
 
+        if (bookinfo==null){ // bookinfo가 없을 때 error code 404
+            throw new BookNotFoundException(String.format("bookInfoId %s not found", bookInfoId));
+        }
+
+        book.setBookInfo(bookinfo);
         bookService.saveBook(book);
 
         return book;
@@ -69,12 +81,15 @@ public class BookController {
     @PostMapping("/api/book/delete") // 없는 값 삭제하면 badgate
     @ResponseBody
     public void bookDelete(@RequestBody Book book){
+        if (book==null){
+            throw new BookNotFoundException(String.format("book not found"));
+        }
         bookService.deleteBook(book.getId());
     }
 
     //bookid에 맞는 book 없으면 오류
     //bookshelfid에 맞는 bookshelf 없으면 오류
-    @PostMapping("/api/book/position")
+    @PostMapping("/api/book/location")
     @ResponseBody
     public Book bookAddPosition(@RequestBody Map<String, Object> requestData) {
         Integer tmp1 = (Integer) requestData.get("bookId");
@@ -87,7 +102,7 @@ public class BookController {
         Book book=bookService.findOne(bookId);
         //잘못된 bookid일 경우 404
         if (book==null){
-            throw new UserNotFoundException(String.format("bookId %s not found",bookId));
+            throw new BookNotFoundException(String.format("bookId %s not found",bookId));
         }
         BookShelf bookShelf = bookShelfService.findOne(bookShelfId);
         //잘못된 bookshelfid일 경우 404
@@ -113,7 +128,7 @@ public class BookController {
         Book book=bookService.findOne(bookId);
         //잘못된 bookid일 경우 404
         if (book==null){
-            throw new UserNotFoundException(String.format("bookId %s not found",bookId));
+            throw new BookNotFoundException(String.format("bookId %s not found",bookId));
         }
         //잘못된 useid일 경우 404
         User user= userService.findOne(userId);
@@ -122,7 +137,7 @@ public class BookController {
         }
         //이미 대여중인 도서인 경우 404
         if (book.getStatus()==Boolean.FALSE){
-            throw new UserNotFoundException(String.format("userID %s not found",userId));
+            throw new BookNotFoundException(String.format("bookID %s not found",bookId));
         }
 
         book.setStatus(Boolean.FALSE);
@@ -159,7 +174,7 @@ public class BookController {
         Book book=bookService.findOne(bookId);
         //잘못된 bookid일 경우 404
         if (book==null){
-            throw new UserNotFoundException(String.format("bookId %s not found",bookId));
+            throw new BookNotFoundException(String.format("bookId %s not found",bookId));
         }
         //잘못된 useid일 경우 404
         User user= userService.findOne(userId);
@@ -168,7 +183,7 @@ public class BookController {
         }
         //이미 있는 책인데 반납하려는 경우 404
         if (book.getStatus()==Boolean.TRUE){
-            throw new UserNotFoundException(String.format("userID %s not found",userId));
+            throw new BookNotFoundException(String.format("bookID %s not found",bookId));
         }
         book.setStatus(Boolean.TRUE);
         book.setBookShelf(null);
