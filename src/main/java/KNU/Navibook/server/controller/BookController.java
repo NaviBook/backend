@@ -19,7 +19,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
+
 @Controller
 public class BookController {
     @Autowired
