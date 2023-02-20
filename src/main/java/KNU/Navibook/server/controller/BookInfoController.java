@@ -21,11 +21,12 @@ public class BookInfoController {
     public Object returnBookInfoAll(@RequestParam(value="bookInfoId", required=false) Long id){
         if(id==null)
             return bookInfoService.findAll();
-        else
-            if (bookInfoService.findOne(id)==null){
-            throw new BookNotFoundException(String.format("bookInfoId %s not found", id));
+        else {
+            if (bookInfoService.findOne(id) == null) {
+                throw new BookNotFoundException(String.format("bookInfoId %s not found", id));
             }
             return bookInfoService.findOne(id);
+        }
     }
 
     @GetMapping("/{bookName}")
