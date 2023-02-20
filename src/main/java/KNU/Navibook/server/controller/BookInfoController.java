@@ -18,7 +18,7 @@ public class BookInfoController {
     BookInfoService bookInfoService;
     @GetMapping("")
     @ResponseBody
-    public Object returnBookInfoAll(@RequestParam(value="bookInfoId", required=false) Long id){
+    public Object returnBookInfoAll(@RequestParam(value="id", required=false) Long id){
         if(id==null)
             return bookInfoService.findAll();
         else {
