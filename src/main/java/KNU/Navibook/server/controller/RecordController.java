@@ -28,9 +28,8 @@ public class RecordController {
 
     @GetMapping("/api/record") // record 전체 검색
     @ResponseBody
-    public RecordDTO allRecord(@RequestParam("page") Integer page, @RequestParam("orderBy") String orderBy) {
+    public RecordDTO allRecord(@RequestParam("orderBy") String orderBy) {
         List<Record> records = recordService.findRecords();
-        List<Record> pageRecords = new ArrayList<>();
 
         if (orderBy.equals("book")){ // bookName 오름차순 정렬
             Comparator<Record> bs = Comparator.comparing(a -> a.getBook().getBookInfo().getBookName());
@@ -49,26 +48,19 @@ public class RecordController {
         else if (orderBy.equals("user")){ // userId 오름차순 정렬
             Comparator<Record> us = Comparator.comparing(a -> a.getUser().getId());
             Collections.sort(records, us);
-        }else{ // 예외처리 해줘야 함.
-
         }
 
-        for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
-            pageRecords.add(records.get(i));
-        }
-
-        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
+        RecordDTO recordDTO = new RecordDTO(records, records.size());
 
         return recordDTO;
     }
     @GetMapping("/api/record/user/{userId}") // userId로 userRecord 검색
     @ResponseBody
     public RecordDTO userRecord(@PathVariable("userId") String userId,
-                                   @RequestParam("page") Integer page, @RequestParam("orderBy") String orderBy)
+                                @RequestParam("orderBy") String orderBy)
     {
         User user = userService.findOne(userId);
         List<Record> records = recordService.findRecordByUser(user);
-        List<Record> pageRecords = new ArrayList<>();
 
         if (user==null){
             throw new UserNotFoundException(String.format("userId %s not found",userId));
@@ -90,21 +82,16 @@ public class RecordController {
             Collections.reverse(records);
         }
 
-        for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
-            pageRecords.add(records.get(i));
-        }
-        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
+        RecordDTO recordDTO = new RecordDTO(records, records.size());
 
         return recordDTO;
     }
     @GetMapping("/api/record/book/{bookId}") //bookId로 bookRecord 검색
     @ResponseBody
-    public RecordDTO bookRecord(@PathVariable("bookId") Long bookId,
-                                   @RequestParam("page") Integer page)
+    public RecordDTO bookRecord(@PathVariable("bookId") Long bookId)
     {
         Book book = bookService.findOne(bookId);
         List<Record> records = recordService.findRecordByBook(book);
-        List<Record> pageRecords = new ArrayList<>();
 
         Comparator<Record> ts = Comparator.comparing(Record::getTakeDate);
         Collections.sort(records, ts);
@@ -114,10 +101,7 @@ public class RecordController {
             throw new BookNotFoundException(String.format("bookId %s not found",bookId));
         }
 
-        for(int i = (page*10)-10; (records != null) && (records.size() > i) && (i < page*10); i++){
-            pageRecords.add(records.get(i));
-        }
-        RecordDTO recordDTO = new RecordDTO(pageRecords, records.size());
+        RecordDTO recordDTO = new RecordDTO(records, records.size());
 
         return recordDTO;
     }
