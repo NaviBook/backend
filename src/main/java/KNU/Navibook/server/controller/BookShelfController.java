@@ -37,12 +37,8 @@ public class BookShelfController {
 
     @PostMapping("/edit")
     @ResponseBody
-    public String edit(@RequestBody BookShelf bookShelf){
-        if (bookShelfService.validateDuplicateBookShelf(bookShelf)==-1){
-            return "id중복";
-        }
-        bookShelfService.save(bookShelf);
-        return "success";
+    public BookShelf edit(@RequestBody BookShelf bookShelf){
+        return bookShelfService.save(bookShelf);
     }
 
 }

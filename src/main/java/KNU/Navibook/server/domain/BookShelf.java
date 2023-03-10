@@ -19,6 +19,7 @@ public class BookShelf {
 
     @Id
     @Column(name = "BOOKSHELF_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long shelfFloor;
