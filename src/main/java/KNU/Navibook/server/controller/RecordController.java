@@ -5,6 +5,7 @@ import KNU.Navibook.server.domain.Record;
 import KNU.Navibook.server.domain.User;
 import KNU.Navibook.server.dto.RecordDTO;
 import KNU.Navibook.server.exceptions.BookNotFoundException;
+import KNU.Navibook.server.exceptions.RecordNotFoundException;
 import KNU.Navibook.server.exceptions.UserNotFoundException;
 import KNU.Navibook.server.service.BookService;
 import KNU.Navibook.server.service.RecordService;
@@ -40,14 +41,17 @@ public class RecordController {
             Collections.sort(records, ts);
             Collections.reverse(records);
         }
-        else if (orderBy.equals("giveDate")){ // GiveDate 내림차순 정렬
-            Comparator<Record> gs = Comparator.comparing(Record::getGiveDate);
+        else if (orderBy.equals("giveDate")){ // GiveDate 내림차순 정렬, 반납 안했으면 제일 앞으로 옴.
+            Comparator<Record> gs = Comparator.comparing(Record::getGiveDate, Comparator.nullsLast(Comparator.naturalOrder()));
             Collections.sort(records, gs);
             Collections.reverse(records);
         }
         else if (orderBy.equals("user")){ // userId 오름차순 정렬
             Comparator<Record> us = Comparator.comparing(a -> a.getUser().getId());
             Collections.sort(records, us);
+        }
+        else{
+            throw new RecordNotFoundException(String.format("orderBy %s not found", orderBy));
         }
 
         RecordDTO recordDTO = new RecordDTO(records, records.size());
@@ -80,6 +84,9 @@ public class RecordController {
             Comparator<Record> gs = Comparator.comparing(Record::getGiveDate, Comparator.nullsLast(Comparator.naturalOrder()));
             Collections.sort(records, gs);
             Collections.reverse(records);
+        }
+        else{
+            throw new RecordNotFoundException(String.format("orderBy %s not found", orderBy));
         }
 
         RecordDTO recordDTO = new RecordDTO(records, records.size());
